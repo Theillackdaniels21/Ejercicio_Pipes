@@ -27,6 +27,22 @@ namespace Ucu.Poo.PipesAndFilters
             IPicture picture = provider.GetPicture(@"luke.jpg");
 
             IPicture result = pipeSerial1.Send(picture);
+            provider.SavePicture(result, @"Result.jpg");
+
+            //Ejercicio 2
+            IFilter saveFilter = new FilterSave(@"Result2.jpg");
+            PipeSerial pipeSerial3 = new PipeSerial(saveFilter, pipeSerial2);
+            pipeSerial1 = new PipeSerial(new FilterGrayscale(), pipeSerial3);
+            result = pipeSerial1.Send(picture);
+            provider.SavePicture(result, @"Result3.jpg");
+
+            //Ejercicio 3
+            IFilter filterDiscord = new FilterDiscord();
+            PipeSerial discordPipe = new PipeSerial(filterDiscord, pipeNull);
+            discordPipe.Send(picture);
+
+            //Ejercicio 4
+            
         }
     }
 }
