@@ -42,7 +42,11 @@ namespace Ucu.Poo.PipesAndFilters
             discordPipe.Send(picture);
 
             //Ejercicio 4
-            
+            IPipe pipeTrue = new PipeSerial(new FilterSave(@"conCara.jpg"), pipeNull);
+            IPipe pipeFalse = new PipeSerial(new FilterNegative(), pipeNull);
+            IConditionalFilter filterCognitive = new FilterCognitive();
+            IPipe pipeConditional = new PipeConditional(filterCognitive, pipeTrue, pipeFalse);
+
         }
     }
 }
